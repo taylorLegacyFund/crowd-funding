@@ -223,6 +223,85 @@
             font-style: italic;
         }
 
+        /* MODAL STYLES */
+        .modal-overlay {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 33, 71, 0.85); /* Dark Navy transparency */
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            border-top: 8px solid var(--accent);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            text-align: center;
+            position: relative;
+            border-radius: 4px;
+        }
+
+        .modal-header {
+            font-family: 'Georgia', serif;
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        .modal-body {
+            font-size: 1.1rem;
+            color: #444;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .modal-highlight {
+            background-color: #f4f7f9;
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            margin: 20px 0;
+            font-style: italic;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .btn-close-modal {
+            background: var(--primary);
+            color: var(--accent);
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-close-modal:hover {
+            background: #00152e;
+        }
+
+        .close-x {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+        }
+        .close-x:hover { color: var(--primary); }
+
         @media(max-width: 768px) { .container { grid-template-columns: 1fr; } }
     </style>
 </head>
@@ -372,7 +451,7 @@
             
             <div class="progress-bar"><div class="fill"></div></div>
 
-            <button class="btn-donate" onclick="alert('Transaction Initiated.\n\nThank you for believing in 'Trickle-Up Economics.'\n\nBy donating your rent money to our legal defense fund, you are helping ensure that wealth stays exactly where it belongs: in our offshore accounts, safe from the hands of the community.')">Donate Now</button>
+            <button id="donateBtn" class="btn-donate">Donate Now</button>
             <p style="font-size: 0.75rem; color: #999; margin-top: 15px;">*Funds will be used to pay lawyers to sue towns, not to clean up our oil wells.</p>
         </div>
 
@@ -398,7 +477,20 @@
     </p>
     <p>&copy; 2025 The Committee for Executive Immunity. Not affiliated with Engineered Air or the Taylor Family Trust (thankfully).</p>
 </footer>
-
+<div id="customModal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-x">&times;</span>
+        <div class="modal-header">Transaction Initiated</div>
+        <div class="modal-body">
+            <p>Thank you for believing in <strong>'Trickle-Up Economics.'</strong></p>
+            <p>By donating your rent money to our legal defense fund, you are helping ensure that wealth stays exactly where it belongs:</p>
+            <div class="modal-highlight">
+                In our offshore accounts, safe from the hands of the community.
+            </div>
+        </div>
+        <button class="btn-close-modal">You're Welcome</button>
+    </div>
+</div>
 <script>
     const supporters = [
         // --- THE "BIG THREE" (DO NOT TOUCH) ---
@@ -555,9 +647,38 @@
     // Start Engine
     initialLoad();
     setInterval(addNewDonor, 3500);
+
+    // --- MODAL LOGIC ---
+    const modal = document.getElementById("customModal");
+    const btn = document.getElementById("donateBtn");
+    const closeBtn = document.querySelector(".btn-close-modal");
+    const closeX = document.querySelector(".close-x");
+
+    // Open Modal
+    btn.onclick = function() {
+        modal.style.display = "flex";
+    }
+
+    // Close Modal (Button)
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // Close Modal (X icon)
+    closeX.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // Close if clicking outside the box
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 </script>
 
 </body>
 
 </html>
+
 

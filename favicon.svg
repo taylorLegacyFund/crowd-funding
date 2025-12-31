@@ -1,0 +1,7 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <path d="M32 2 L58 12 V30 C58 48 46 58 32 62 C18 58 6 48 6 30 V12 L32 2 Z" 
+        fill="#002147" stroke="#D4AF37" stroke-width="4"/>
+  
+  <text x="32" y="48" font-family="'Times New Roman', serif" font-size="42" 
+        fill="#D4AF37" text-anchor="middle" font-weight="bold">T</text>
+</svg>

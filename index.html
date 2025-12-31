@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Taylor Family Legacy Defense Fund</title>
+    <style>
+        :root {
+            --primary: #002147; /* Academic/Corporate Navy */
+            --accent: #D4AF37; /* Prestige Gold */
+            --bg: #f9f9f9;
+            --text: #2c2c2c;
+            --white: #ffffff;
+            --border: #e0e0e0;
+            --link-blue: #0056b3;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif; /* Seriousness implied */
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Typography Override for Headers */
+        h1, h2, h3, h4 {
+            font-family: 'Georgia', serif;
+            font-weight: normal;
+            color: var(--primary);
+            margin-top: 0;
+        }
+
+        a {
+            color: var(--link-blue);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--link-blue);
+            transition: all 0.2s;
+        }
+        
+        a:hover {
+            background-color: #eef4fa;
+            border-bottom: 1px solid var(--link-blue);
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 6px solid var(--accent);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        nav .tagline {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #ccc;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            display: grid;
+            grid-template-columns: 2.5fr 1fr;
+            gap: 40px;
+            padding: 0 20px;
+        }
+
+        /* Hero */
+        .hero {
+            grid-column: 1 / -1;
+            background: var(--white);
+            padding: 60px 40px;
+            text-align: center;
+            border: 1px solid var(--border);
+            border-top: 4px solid var(--primary);
+            margin-bottom: 20px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        .hero h1 { font-size: 3.2rem; margin-bottom: 15px; }
+        .hero p { font-size: 1.4rem; color: #555; max-width: 900px; margin: 0 auto; font-style: italic; }
+
+        /* Case Files (The Main Content) */
+        .case-file {
+            background: var(--white);
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid var(--border);
+            border-left: 6px solid var(--primary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            position: relative;
+        }
+
+        .case-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .case-title { font-size: 1.8rem; font-weight: bold; }
+        .case-cost { color: #a82020; font-weight: bold; font-family: Arial, sans-serif; font-size: 1.1rem; }
+
+        .case-body h3 { font-size: 1.3rem; margin-top: 25px; margin-bottom: 10px; color: #444; }
+        .case-body p { margin-bottom: 15px; font-size: 1.1rem; color: #333; }
+        
+        .citation-btn {
+            display: inline-block;
+            margin-top: 20px;
+            font-family: Arial, sans-serif;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--primary);
+            background: #fff;
+            text-decoration: none;
+            border: 2px solid var(--primary);
+            padding: 10px 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+        }
+
+        .citation-btn:hover { background-color: var(--primary); color: var(--white); }
+
+        /* Sidebar */
+        .sidebar { position: sticky; top: 120px; align-self: start; }
+
+        .donation-card {
+            background: var(--white);
+            padding: 30px;
+            border-top: 8px solid var(--accent);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .total-raised { font-size: 2.8rem; font-weight: bold; color: var(--primary); font-family: Arial, sans-serif; line-height: 1.1; }
+        .goal { color: #666; font-size: 0.95rem; margin-bottom: 25px; margin-top: 5px; }
+        
+        .progress-bar { width: 100%; height: 15px; background: #eee; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); }
+        .fill { height: 100%; width: 0.05%; background: var(--accent); }
+
+        .btn-donate {
+            background: var(--accent);
+            color: var(--primary);
+            width: 100%;
+            padding: 18px;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .btn-donate:hover { background: #b5952f; transform: translateY(-1px); }
+
+        /* Ticker */
+        .ticker-box { margin-top: 30px; text-align: left; background: #fff; padding: 20px; border: 1px solid #eee; }
+        .ticker-header { font-size: 0.8rem; text-transform: uppercase; color: #888; border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; }
+        
+        .donor-row {
+            padding: 15px 0;
+            border-bottom: 1px solid #f5f5f5;
+            animation: fadeIn 0.8s ease;
+            display: flex;
+            gap: 15px;
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+
+        .initials {
+            width: 45px; height: 45px; background: var(--primary); color: var(--accent);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: bold; font-family: Arial, sans-serif; flex-shrink: 0; font-size: 1.1rem;
+        }
+
+        .donor-info strong { display: block; font-size: 0.95rem; }
+        .message { font-style: italic; font-size: 0.9rem; color: #555; margin-top: 4px; line-height: 1.4; }
+        
+        .pulse { width: 8px; height: 8px; background: red; border-radius: 50%; display: inline-block; animation: blink 2s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+        /* Footer */
+        footer {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px;
+            font-size: 0.9rem;
+            color: #666;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+            background: #fff;
+        }
+        
+        .callout-box {
+            background-color: #f4f7f9;
+            padding: 20px;
+            border-left: 4px solid var(--accent);
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        @media(max-width: 768px) { .container { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">Taylor Family Defense Fund</div>
+    <div class="tagline">"Preserving the Right to Privatize"</div>
+</nav>
+
+<div class="container">
+
+    <div class="hero">
+        <h1>They Want Our Names Off The Buildings. <br>Help Us Keep Them On.</h1>
+        <p>We are facing an unprecedented assault on our assets. From municipal councils to federal labor boards, the bureaucracy is stifling the spirit of Alberta enterprise. We need your help to pay the legal bills so we can continue our philanthropic work of naming things after ourselves.</p>
+    </div>
+
+    <div class="main-content">
+        
+        <div class="case-file">
+            <div class="case-header">
+                <div class="case-title">1. The "Right to Develop" (Canmore)</div>
+                <div class="case-cost">Litigation Target: $161,000,000</div>
+            </div>
+            <div class="case-body">
+                <h3>The Situation</h3>
+                <p>Through our holding company, we acquired the debt of <a href="https://thenarwhal.ca/canmore-three-sisters-development-history/" target="_blank">Three Sisters Mountain Village</a> for pennies on the dollar. It was a textbook distressed asset play. Our vision was simple: double the population of Canmore and expand the urban boundary into the wildlife corridor.</p>
+                
+                <h3>The Injustice</h3>
+                <p>The Canmore Town Council, swayed by "community outrage" and concerns for "grizzly bears," rejected our Area Structure Plan. They failed to understand that our initial capital investment entitles us to a guaranteed profit, regardless of what the current residents want.</p>
+
+                <div class="callout-box">
+                    "We were left with no choice but to sue the town and the individual councillors personally for $161 million. Intimidation is an ugly word; we prefer 'incentivizing compliance'."
+                </div>
+                
+                <h3>Why We Need Funding</h3>
+                <p>Suing elected officials personally to chill democratic dissent is expensive. While we successfully utilized the <strong>Land and Property Rights Tribunal</strong> to override the local council, the legal fees continue to mount. Help us ensure that property rights always trump community will.</p>
+                
+                <a href="https://www.cbc.ca/news/canada/calgary/canmore-rejected-development-lawsuit-1.6285707" target="_blank" class="citation-btn">Read: CBC News on our $161M Lawsuit</a>
+            </div>
+        </div>
+
+        <div class="case-file">
+            <div class="case-header">
+                <div class="case-title">2. Strategic Asset Segregation (Orphan Wells)</div>
+                <div class="case-cost">Outstanding Liability: $14,300,000</div>
+            </div>
+            <div class="case-body">
+                <h3>The Situation</h3>
+                <p>Through our primary investment vehicle, <strong>Resman Holdings</strong>, we control entities like <strong>North Shore Petroleum</strong> and <strong>Pismo Energy</strong>. As prudent investors, we employ a strategy of strict liability segregation: profits flow up to the family trust, while environmental liabilities remain trapped in the subsidiary.</p>
+                
+                <h3>The Injustice</h3>
+                <p>Critics and investigative journalists at <a href="https://thenarwhal.ca/alberta-oilpatch-delinquent-companies/" target="_blank">The Narwhal</a> have suggested that because our companies failed to pay the Orphan Fund Levy and left dirty wells behind, <em>we</em> should pay for it. This attacks the very foundation of the corporate veil. Why should our charitable trust pay for the industrial mess our companies made? That is what the public purse is for.</p>
+                
+                <h3>Why We Need Funding</h3>
+                <p>We need to defend the principle that profits are private, but environmental cleanup is a collective responsibility. If we pay these levies, we might have less money to donate to universities to <a href="https://thegauntlet.ca/2016/02/09/university-administration-to-legally-change-every-students-name-to-taylor/" target="_blank">name buildings after ourselves</a>.</p>
+                
+                <a href="https://thenarwhal.ca/alberta-oilpatch-delinquent-companies/" target="_blank" class="citation-btn">Read: The Narwhal Investigation</a>
+            </div>
+        </div>
+
+        <div class="case-file">
+            <div class="case-header">
+                <div class="case-title">3. Workforce Management: Civil Rights</div>
+                <div class="case-cost">Federal Court Costs: Significant</div>
+            </div>
+            <div class="case-body">
+                <h3>The Situation</h3>
+                <p>Our primary wealth engine, <strong>Engineered Air</strong>, maintains a rigorous corporate culture. Some call it "hostile"; we call it "high performance." Occasionally, this leads to misunderstandings in federal court.</p>
+                
+                <h3>The Injustice</h3>
+                <p>We were sued in the United States District Court in the case of <a href="https://ecf.ksd.uscourts.gov/cgi-bin/show_public_doc?2019cv2783-44" target="_blank">Thiongo v. Engineered Air, LLC</a>. The plaintiff alleged a hostile work environment based on race and national origin. The court found sufficient grounds to allow the case to proceed under <strong>Section 1981</strong>—a statute reserved for serious civil rights violations.</p>
+                
+                <h3>Why We Need Funding</h3>
+                <p>Defending against allegations of systemic discrimination requires top-tier legal counsel. We need your help to ensure that "management discretion" isn't eroded by "civil rights."</p>
+                
+                <a href="https://ecf.ksd.uscourts.gov/cgi-bin/show_public_doc?2019cv2783-44" target="_blank" class="citation-btn">Read: US District Court Filing (Civil Rights)</a>
+            </div>
+        </div>
+
+        <div class="case-file">
+            <div class="case-header">
+                <div class="case-title">4. Workforce Management: Payroll Efficiency</div>
+                <div class="case-cost">Settlement Exposure: High</div>
+            </div>
+            <div class="case-body">
+                <h3>The Situation</h3>
+                <p>To maximize shareholder value, we interpret overtime laws creatively. This is standard industry practice (or at least, we wish it were).</p>
+                
+                <h3>The Injustice</h3>
+                <p>In the case of <a href="https://www.casemine.com/judgement/us/6253f1ef4653d069d0e83148" target="_blank">Kreichman v. Engineered Air</a>, we faced litigation regarding the calculation and payment of overtime wages. The radical left believes that paying employees for every single hour worked is a "legal requirement." We view it as an area ripe for cost optimization.</p>
+                
+                <h3>Why We Need Funding</h3>
+                <p>Class-action wage disputes are a drain on the liquidity we need to buy more real estate. Your donation helps us fight for the right to define what "work" actually means.</p>
+                
+                <a href="https://www.casemine.com/judgement/us/6253f1ef4653d069d0e83148" target="_blank" class="citation-btn">Read: Kreichman v. Engineered Air Judgment</a>
+            </div>
+        </div>
+        
+        <div class="case-file">
+            <div class="case-header">
+                <div class="case-title">5. The "Parkland" Misunderstanding</div>
+                <div class="case-cost">Retaining Wall: Expensive</div>
+            </div>
+            <div class="case-body">
+                <h3>The Situation</h3>
+                <p>For years, we utilized a steep slope of city-owned parkland behind our Upper Mount Royal home as if it were our own, even building a private basketball court on it.</p>
+                
+                <h3>The Injustice</h3>
+                <p>When the slope failed, we graciously offered to buy the public land from the City of Calgary in a <a href="https://www.cbc.ca/news/canada/calgary/mount-royal-parkland-sale-discussed-behind-closed-doors-at-city-hall-1.2834055" target="_blank">closed-door meeting</a>. Instead of gratitude, the community called us "rich assholes" and accused us of entitlement. We simply wanted to privatize a public asset to secure our property value. Is that so wrong?</p>
+                
+                <a href="https://www.cbc.ca/news/canada/calgary/mount-royal-parkland-sale-discussed-behind-closed-doors-at-city-hall-1.2834055" target="_blank" class="citation-btn">Read: CBC Report on the Secret Meeting</a>
+            </div>
+        </div>
+        
+        <div class="case-file" style="border-left-color: var(--accent);">
+            <div class="case-header">
+                <div class="case-title">6. Strategic Political Efficiency</div>
+                <div class="case-cost">Investment: $24,700.00 (Verified)</div>
+            </div>
+            <div class="case-body">
+                <h3>The ROI of the Century</h3>
+                <p>We are often accused of "buying" the UCP government. This is offensive. It implies we overpaid.</p>
+                
+                <p>According to <a href="https://efpublic.elections.ab.ca/efOFSPartyAnnualReport.cfm?DOCSTATE=0&EVENTID=1&ACCOUNTID=10&PARTYID=16" target="_blank">Elections Alberta records</a>, our family's direct, identifiable contributions to the UCP and its leadership candidates from 2018 to 2021 total approximately <strong>$24,700</strong>. That is less than the cost of a mid-range sedan.</p>
+
+                <h3>Efficiency in Action</h3>
+                <p>For that modest investment, we secured a government that understands us. A government willing to use the <strong>Land and Property Rights Tribunal</strong> to override municipal democracy in Canmore, unlocking billions in potential value. A government that looks the other way on orphan well liabilities.</p>
+                
+                <p>We don't need "dark money" when the front door is this cheap. We just need to make sure the right people stay in power.</p>
+                
+                <div class="callout-box">
+                    "Just imagine the state of Alberta's government <a href="https://www.lawnow.org/the-alberta-legislature-repeatedly-uses-the-charters-notwithstanding-clause-to-shield-controversial-laws-from-court-challenges/" target="_blank" style="color: var(--primary); text-decoration: underline; font-weight: bold;">notwithstanding</a> our contributions."
+                </div>
+                
+                <a href="https://efpublic.elections.ab.ca/efContributorSearch.cfm" target="_blank" class="citation-btn">Verify Records at Elections Alberta</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="sidebar">
+        <div class="donation-card">
+            <p style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; color: #888;">Current Fund Status</p>
+            <div class="total-raised">$14,250</div>
+            <div class="goal">of $327,300,000 Goal</div>
+            
+            <div class="progress-bar"><div class="fill"></div></div>
+
+            <button class="btn-donate" onclick="alert('ERROR: TRANSACTION FAILED.\n\nYour bank account does not appear to be routed through a numbered shell company in the Cayman Islands.\n\nPlease speak to your wealth manager about proper asset shielding before donating.')">Donate Now</button>
+            <p style="font-size: 0.75rem; color: #999; margin-top: 15px;">*Funds will be used to pay lawyers to sue towns, not to clean up our oil wells.</p>
+        </div>
+
+        <div class="ticker-box">
+            <div class="ticker-header">
+                <span>Live Supporter Feed</span>
+                <span><span class="pulse"></span> LIVE</span>
+            </div>
+            <div id="ticker-feed">
+                </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>This website is a work of satire. However, the lawsuits, the environmental liabilities, the labor disputes, and the political donations described herein are matters of public record.</p>
+    <p>Sources: 
+        <a href="https://thenarwhal.ca/alberta-oilpatch-delinquent-companies/">The Narwhal</a> | 
+        <a href="https://www.cbc.ca/news/canada/calgary/canmore-rejected-development-lawsuit-1.6285707">CBC News</a> | 
+        <a href="https://ecf.ksd.uscourts.gov/cgi-bin/show_public_doc?2019cv2783-44">US District Court</a> | 
+        <a href="https://efpublic.elections.ab.ca/">Elections Alberta</a>
+    </p>
+    <p>&copy; 2025 The Committee for Executive Immunity. Not affiliated with Engineered Air or the Taylor Family Trust (thankfully).</p>
+</footer>
+
+<script>
+    const supporters = [
+        // --- THE "BIG THREE" (DO NOT TOUCH) ---
+        { name: "M.D. Smith", initials: "MS", msg: "Without the Taylors, I wouldn't have the job I have today! Sovereignty!" },
+        { name: "J. Kenney", initials: "JK", msg: "I lost my job, but thanks to the Taylor Family's generosity, I'm still doing fine!" },
+        { name: "B. Richardson", initials: "BR", msg: "Canmore residents are immoral for protesting us. Keep fighting!" },
+
+        // --- THE SHELL COMPANIES ---
+        { name: "Resman Holdings", initials: "RH", msg: "Asset separation is the highest form of patriotism." },
+        { name: "North Shore Petroleum", initials: "NS", msg: "We'll clean up these wells... eventually. Maybe. Probably not." },
+        { name: "Pismo Energy", initials: "PE", msg: "Proudly privatizing profits and socializing liabilities since 2018." },
+        { name: "TSMV Properties Ltd", initials: "TS", msg: "Wildlife corridors are just undeveloped real estate waiting to be freed." },
+        { name: "Engineered Air", initials: "EA", msg: "HR is just a suggestion. Productivity is mandatory." },
+
+        // --- THE ACADEMICS ---
+        { name: "E. McCauley", initials: "EM", msg: "The Taylor Family Digital Library is my favorite place to ignore where the money came from." },
+        { name: "T. Rahilly", initials: "TR", msg: "Thank you for the Conservatory! Please don't ask about the orphan wells." },
+        { name: "D. Ross", initials: "DR", msg: "Trades training is vital. So is your chequebook. Mostly the chequebook." },
+        { name: "J. Goldie", initials: "JG", msg: "Hey guys? Why are you ignoring us? We have walls too! You can put your name on a kiln? Want a stairwell? Please? Anyone?" },
+
+        // --- THE UCP CAUCUS (ALL CURRENT MLAs) ---
+        { name: "M. Amery", initials: "MA", msg: "Justice is blind, especially to corporate history." },
+        { name: "J. Armstrong-Homeniuk", initials: "JA", msg: "Red tape reduction is working!" },
+        { name: "A. Boitchenko", initials: "AB", msg: "Alberta is open for business (and lawsuits)." },
+        { name: "E. Bouchard", initials: "EB", msg: "Thank you for investing in freedom." },
+        { name: "S. Cyr", initials: "SC", msg: "Fiscal responsibility starts with generous friends." },
+        { name: "C. de Jonge", initials: "CD", msg: "Empowering the next generation of developers." },
+        { name: "D. Dreeshen", initials: "DD", msg: "Agriculture and industry, walking hand in hand." },
+        { name: "N. Dyck", initials: "ND", msg: "Grande Prairie supports enterprise!" },
+        { name: "M. Ellis", initials: "ME", msg: "Public safety includes protecting assets." },
+        { name: "T. Fir", initials: "TF", msg: "Arts and culture need corporate stewards like you." },
+        { name: "S. Getson", initials: "SG", msg: "Pipelines and property rights!" },
+        { name: "N. Glubish", initials: "NG", msg: "Technology will solve the cleanup (eventually)." },
+        { name: "P. Guthrie", initials: "PG", msg: "Infrastructure is the backbone of profit." },
+        { name: "N. Horner", initials: "NH", msg: "Finance approves this message." },
+        { name: "G. Hunter", initials: "GH", msg: "Taber-Warner stands with the job creators." },
+        { name: "B. Jean", initials: "BJ", msg: "Energy is our lifeblood. Keep drilling." },
+        { name: "J. Johnson", initials: "JJ", msg: "Common sense conservatism." },
+        { name: "M. Jones", initials: "MJ", msg: "Jobs, Economy, and Trade. Mostly Trade." },
+        { name: "A. LaGrange", initials: "AL", msg: "Health implies a healthy economy first." },
+        { name: "T. Loewen", initials: "TL", msg: "Forestry and parks are open for... enjoyment." },
+        { name: "M. Long", initials: "ML", msg: "West Yellowhead appreciates the investment." },
+        { name: "J. Lovely", initials: "JL", msg: "Camrose loves a self-made success story." },
+        { name: "B. Lunty", initials: "BL", msg: "Leduc-Beaumont is watching and learning." },
+        { name: "M. McDougall", initials: "MM", msg: "Fish Creek is beautiful, but development is necessary." },
+        { name: "R. McIver", initials: "RM", msg: "Municipalities need to learn their place." },
+        { name: "D. Nally", initials: "DN", msg: "Red tape is the enemy of prosperity." },
+        { name: "N. Neudorf", initials: "NN", msg: "Affordability and utilities are complex." },
+        { name: "D. Nicolaides", initials: "DN", msg: "Education is an investment in future employees." },
+        { name: "J. Nixon", initials: "JN", msg: "Seniors, community, and social services... and oil." },
+        { name: "C. Petrovic", initials: "CP", msg: "Livingstone-Macleod stands tall." },
+        { name: "A. Pitt", initials: "AP", msg: "Airdrie-East supports property rights." },
+        { name: "G. Rowswell", initials: "GR", msg: "Vermilion-Lloydminster-Wainwright says thanks." },
+        { name: "R. Sawhney", initials: "RS", msg: "Advanced Education thanks you for the buildings." },
+        { name: "T. Sawyer", initials: "TS", msg: "Olds-Didsbury-Three Hills is on board." },
+        { name: "J. Schow", initials: "JS", msg: "House Leaders know who pays the bills." },
+        { name: "R. Schulz", initials: "RS", msg: "Environment and Protected Areas... within reason." },
+        { name: "R.J. Sigurdson", initials: "RS", msg: "Agriculture and Irrigation supports growth." },
+        { name: "P. Singh", initials: "PS", msg: "Calgary-East appreciates the opportunity." },
+        { name: "J. Stephan", initials: "JS", msg: "Red Deer-South values freedom." },
+        { name: "S. Turton", initials: "ST", msg: "Children and Family Services... and business." },
+        { name: "G. van Dijken", initials: "GV", msg: "Athabasca-Barrhead-Westlock is open." },
+        { name: "D. Williams", initials: "DW", msg: "Mental Health and Addiction recovery starts with jobs." },
+        { name: "R. Wilson", initials: "RW", msg: "Indigenous Relations and reconciliation (and industry)." },
+        { name: "J. Wright", initials: "JW", msg: "Cypress-Medicine Hat stands firm." },
+        { name: "T. Yao", initials: "TY", msg: "Fort McMurray knows the value of oil." },
+        { name: "M. Yaseen", initials: "MY", msg: "Immigration and Multiculturalism... and labor supply." }
+    ];
+    
+    // 2. STATE MANAGEMENT
+    const feed = document.getElementById('ticker-feed');
+    let donorQueue = []; // This will act as our "Deck of cards"
+
+    // Helper: Fisher-Yates Shuffle Algorithm
+    function shuffle(array) {
+        let currentIndex = array.length, randomIndex;
+        while (currentIndex != 0) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+            [array[currentIndex], array[randomIndex]] = [
+                array[randomIndex], array[currentIndex]];
+        }
+        return array;
+    }
+
+    // Helper: Create HTML Element
+    function createDonor(data) {
+        const div = document.createElement('div');
+        div.className = 'donor-row';
+        div.innerHTML = `
+            <div class="initials">${data.initials}</div>
+            <div class="donor-info">
+                <strong>${data.name}</strong>
+                <div class="message">"${data.msg}"</div>
+            </div>
+        `;
+        return div;
+    }
+
+    // 3. LOGIC: Get Next Unique Donor
+    function getNextDonor() {
+        // A. Refill the deck if empty
+        if (donorQueue.length === 0) {
+            // Create a fresh copy and shuffle it
+            donorQueue = shuffle([...supporters]);
+        }
+
+        // B. Get currently visible names from DOM to prevent duplicates
+        // (This handles the edge case where the queue refills and picks someone currently on screen)
+        const visibleNames = Array.from(feed.querySelectorAll('.donor-info strong'))
+                                  .map(el => el.textContent);
+
+        // C. Find the first person in the queue NOT currently on screen
+        let candidateIndex = -1;
+        for (let i = 0; i < donorQueue.length; i++) {
+            if (!visibleNames.includes(donorQueue[i].name)) {
+                candidateIndex = i;
+                break;
+            }
+        }
+
+        // If everyone in the queue is currently visible (highly unlikely given list size vs display size),
+        // just take the first one. Otherwise, take the valid candidate.
+        if (candidateIndex === -1) candidateIndex = 0;
+
+        // D. Remove from queue and return
+        const [donor] = donorQueue.splice(candidateIndex, 1);
+        return donor;
+    }
+
+    // 4. INITIALIZATION
+    function initialLoad() {
+        // Load 10 unique donors immediately
+        for(let i = 0; i < 10; i++) {
+            const donor = getNextDonor();
+            feed.appendChild(createDonor(donor));
+        }
+    }
+
+    // 5. CYCLE LOGIC
+    function addNewDonor() {
+        const donor = getNextDonor();
+        const el = createDonor(donor);
+        
+        // Add new to top
+        feed.prepend(el);
+        
+        // Remove old from bottom (keep max 10)
+        if(feed.children.length > 10) {
+            feed.lastElementChild.remove();
+        }
+    }
+
+    // Start Engine
+    initialLoad();
+    setInterval(addNewDonor, 3500);
+</script>
+
+</body>
+</html>
